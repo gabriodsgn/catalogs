@@ -84,6 +84,10 @@ p {
   margin-bottom: 20px;
 }
 
+.panel-header.compact {
+  margin: 8px 0 12px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -117,6 +121,18 @@ textarea {
 .full-width {
   grid-column: 1 / -1;
   margin-top: 16px;
+}
+
+.helper-text {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 8px 0 16px;
+}
+
+.panel-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
 }
 
 button {
@@ -230,6 +246,78 @@ th {
   gap: 8px;
   font-size: 0.9rem;
   color: var(--muted);
+}
+
+.catalog-list {
+  display: grid;
+  gap: 16px;
+}
+
+.catalog-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  background: #fff;
+  display: grid;
+  gap: 12px;
+}
+
+.catalog-card header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.catalog-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.catalog-card ul {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.catalog-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.catalog-link a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.catalog-results {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.catalog-result {
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+}
+
+.catalog-result h4 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.result-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 .badge {

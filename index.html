@@ -113,6 +113,69 @@
             Nenhum produto cadastrado. Adicione itens no formulário ao lado.
           </p>
         </div>
+
+        <div class="panel-divider"></div>
+
+        <div class="panel-header compact">
+          <h3>Resultados em catálogos</h3>
+          <p>Itens encontrados nos catálogos enviados.</p>
+        </div>
+        <div id="catalog-results" class="catalog-results"></div>
+        <p id="catalog-empty" class="empty-state">
+          Nenhum item de catálogo corresponde à busca atual.
+        </p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Importar catálogos de fornecedores</h2>
+          <p>Envie arquivos ou cole listas para indexar produtos de vários formatos.</p>
+        </div>
+        <form id="catalog-form">
+          <div class="grid">
+            <label>
+              Fornecedor
+              <input name="supplier" type="text" placeholder="Distribuidora Exemplo" required />
+            </label>
+            <label>
+              Tipo de origem
+              <select name="sourceType" required>
+                <option value="PDF">PDF</option>
+                <option value="Planilha (CSV/TSV)">Planilha (CSV/TSV)</option>
+                <option value="Site">Site</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </label>
+            <label>
+              Link do catálogo (opcional)
+              <input name="sourceUrl" type="url" placeholder="https://fornecedor.com/catalogo" />
+            </label>
+            <label>
+              Arquivo (opcional)
+              <input name="file" type="file" accept=".csv,.tsv,.txt,.pdf,.xls,.xlsx" />
+            </label>
+          </div>
+          <label class="full-width">
+            Itens do catálogo (um por linha)
+            <textarea
+              name="items"
+              rows="5"
+              placeholder="Ex: Produto X | SKU-123&#10;Produto Y | SKU-456"
+            ></textarea>
+          </label>
+          <p class="helper-text">
+            Dica: para PDF/XLSX, cole a lista de produtos acima ou cole um CSV/TSV simples.
+          </p>
+          <button type="submit">Adicionar catálogo</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Catálogos carregados</h2>
+          <p>Veja rapidamente o que foi importado por fornecedor.</p>
+        </div>
+        <div id="catalog-list" class="catalog-list"></div>
       </section>
 
       <section class="panel insights">
@@ -131,6 +194,33 @@
           <span class="badge"></span>
         </header>
         <ul></ul>
+      </article>
+    </template>
+
+    <template id="catalog-template">
+      <article class="catalog-card">
+        <header>
+          <div>
+            <h3></h3>
+            <p class="catalog-meta"></p>
+          </div>
+          <div class="catalog-actions">
+            <span class="badge"></span>
+            <button class="tertiary" data-action="remove-catalog">Remover</button>
+          </div>
+        </header>
+        <p class="catalog-link"></p>
+        <ul></ul>
+      </article>
+    </template>
+
+    <template id="catalog-result-template">
+      <article class="catalog-result">
+        <div>
+          <h4></h4>
+          <p class="result-meta"></p>
+        </div>
+        <span class="badge"></span>
       </article>
     </template>
 
