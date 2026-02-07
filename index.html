@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PIM - Catálogo de Produtos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">PIM</p>
+        <h1>Gestão de Produtos e Fornecedores</h1>
+        <p class="subtitle">
+          Centralize dados, encontre rapidamente produtos e saiba em qual fornecedor
+          estão disponíveis.
+        </p>
+      </div>
+      <div class="header-actions">
+        <button id="seed-demo" class="secondary">Carregar exemplo</button>
+        <button id="clear-data" class="tertiary">Limpar dados</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Cadastrar produto</h2>
+          <p>Informe os dados essenciais e relacione com o fornecedor.</p>
+        </div>
+        <form id="product-form">
+          <div class="grid">
+            <label>
+              Produto
+              <input name="name" type="text" placeholder="Ex: Camiseta algodão" required />
+            </label>
+            <label>
+              SKU
+              <input name="sku" type="text" placeholder="SKU-0001" required />
+            </label>
+            <label>
+              Categoria
+              <input name="category" type="text" placeholder="Vestuário" required />
+            </label>
+            <label>
+              Fornecedor
+              <input name="supplier" type="text" placeholder="Fornecedor ABC" required />
+            </label>
+            <label>
+              Status
+              <select name="status" required>
+                <option value="Ativo">Ativo</option>
+                <option value="Em análise">Em análise</option>
+                <option value="Descontinuado">Descontinuado</option>
+              </select>
+            </label>
+            <label>
+              Disponibilidade
+              <select name="availability" required>
+                <option value="Pronta entrega">Pronta entrega</option>
+                <option value="Sob encomenda">Sob encomenda</option>
+                <option value="Indisponível">Indisponível</option>
+              </select>
+            </label>
+          </div>
+          <label class="full-width">
+            Descrição
+            <textarea name="description" rows="4" placeholder="Principais características, materiais, embalagens..."></textarea>
+          </label>
+          <button type="submit">Adicionar ao catálogo</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Buscar produto</h2>
+          <p>Pesquise por nome, SKU, categoria ou fornecedor.</p>
+        </div>
+        <div class="search-bar">
+          <input id="search" type="search" placeholder="Busque um produto ou fornecedor" />
+          <select id="filter-status">
+            <option value="">Status (todos)</option>
+            <option value="Ativo">Ativo</option>
+            <option value="Em análise">Em análise</option>
+            <option value="Descontinuado">Descontinuado</option>
+          </select>
+          <select id="filter-availability">
+            <option value="">Disponibilidade (todas)</option>
+            <option value="Pronta entrega">Pronta entrega</option>
+            <option value="Sob encomenda">Sob encomenda</option>
+            <option value="Indisponível">Indisponível</option>
+          </select>
+        </div>
+
+        <div class="stats" id="stats"></div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>SKU</th>
+                <th>Categoria</th>
+                <th>Fornecedor</th>
+                <th>Status</th>
+                <th>Disponibilidade</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="product-table"></tbody>
+          </table>
+          <p id="empty-state" class="empty-state">
+            Nenhum produto cadastrado. Adicione itens no formulário ao lado.
+          </p>
+        </div>
+
+        <div class="panel-divider"></div>
+
+        <div class="panel-header compact">
+          <h3>Resultados em catálogos</h3>
+          <p>Itens encontrados nos catálogos enviados.</p>
+        </div>
+        <div id="catalog-results" class="catalog-results"></div>
+        <p id="catalog-empty" class="empty-state">
+          Nenhum item de catálogo corresponde à busca atual.
+        </p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Importar catálogos de fornecedores</h2>
+          <p>Envie arquivos ou cole listas para indexar produtos de vários formatos.</p>
+        </div>
+        <form id="catalog-form">
+          <div class="grid">
+            <label>
+              Fornecedor
+              <input name="supplier" type="text" placeholder="Distribuidora Exemplo" required />
+            </label>
+            <label>
+              Tipo de origem
+              <select name="sourceType" required>
+                <option value="PDF">PDF</option>
+                <option value="Planilha (CSV/TSV)">Planilha (CSV/TSV)</option>
+                <option value="Site">Site</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </label>
+            <label>
+              Link do catálogo (opcional)
+              <input name="sourceUrl" type="url" placeholder="https://fornecedor.com/catalogo" />
+            </label>
+            <label>
+              Arquivo (opcional)
+              <input name="file" type="file" accept=".csv,.tsv,.txt,.pdf,.xls,.xlsx" />
+            </label>
+          </div>
+          <label class="full-width">
+            Itens do catálogo (um por linha)
+            <textarea
+              name="items"
+              rows="5"
+              placeholder="Ex: Produto X | SKU-123&#10;Produto Y | SKU-456"
+            ></textarea>
+          </label>
+          <p class="helper-text">
+            Dica: para PDF/XLSX, cole a lista de produtos acima ou cole um CSV/TSV simples.
+          </p>
+          <button type="submit">Adicionar catálogo</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Catálogos carregados</h2>
+          <p>Veja rapidamente o que foi importado por fornecedor.</p>
+        </div>
+        <div id="catalog-list" class="catalog-list"></div>
+      </section>
+
+      <section class="panel insights">
+        <div class="panel-header">
+          <h2>Visão de fornecedores</h2>
+          <p>Saiba rapidamente quais fornecedores oferecem cada item.</p>
+        </div>
+        <div id="supplier-list" class="supplier-list"></div>
+      </section>
+    </main>
+
+    <template id="supplier-template">
+      <article class="supplier-card">
+        <header>
+          <h3></h3>
+          <span class="badge"></span>
+        </header>
+        <ul></ul>
+      </article>
+    </template>
+
+    <template id="catalog-template">
+      <article class="catalog-card">
+        <header>
+          <div>
+            <h3></h3>
+            <p class="catalog-meta"></p>
+          </div>
+          <div class="catalog-actions">
+            <span class="badge"></span>
+            <button class="tertiary" data-action="remove-catalog">Remover</button>
+          </div>
+        </header>
+        <p class="catalog-link"></p>
+        <ul></ul>
+      </article>
+    </template>
+
+    <template id="catalog-result-template">
+      <article class="catalog-result">
+        <div>
+          <h4></h4>
+          <p class="result-meta"></p>
+        </div>
+        <span class="badge"></span>
+      </article>
+    </template>
+
+    <template id="row-template">
+      <tr>
+        <td class="cell-name"></td>
+        <td class="cell-sku"></td>
+        <td class="cell-category"></td>
+        <td class="cell-supplier"></td>
+        <td class="cell-status"></td>
+        <td class="cell-availability"></td>
+        <td>
+          <button class="tertiary" data-action="remove">Remover</button>
+        </td>
+      </tr>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
